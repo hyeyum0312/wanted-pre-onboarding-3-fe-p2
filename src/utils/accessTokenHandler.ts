@@ -3,6 +3,5 @@ export const saveAccessTokenToLocalStorage = (accessToken: string) => {
 }
 
 export const getAccessTokenFromLocalStorage = (): string => {
-
   return localStorage.getItem('accessToken') || ''
 }
