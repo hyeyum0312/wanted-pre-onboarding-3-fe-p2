@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { getCurrentUserInfoWithToken, loginWithToken } from '../../api/login'
 import { UserInfo } from '../../types/user'
+import axios from "axios";
 
 const JWTLogin = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
@@ -14,11 +15,23 @@ const JWTLogin = () => {
       username: formData.get('username') as string,
       password: formData.get('password') as string
     }
+    console.log('loginPayload',loginPayload)
 
     // TODO: 로그인 연결 및 토큰 가져오기 (loginWithToken 함수 사용)
     // 로그인 실패시 함수를 종료합니다.
     // 로그인 성공시, getCurrentUserInfoWithToken 함수를 호출하여 userInfo를 가져옵니다.
 
+    axios.post('http://wanted-p2.bluestragglr.com/auth/login', {
+      username: `${loginPayload.username}`,
+      password: `${loginPayload.password}`,
+    })
+        .then(function (response) {
+          console.log(response);
+          getCurrentUserInfoWithToken(response.data.access_token);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     // TODO: 유저 정보 가져오기 (getCurrentUserInfoWithToken 함수 사용)
     // 유저 정보 가져오기 실패시 함수를 종료합니다.
     // 유저 정보 가져오기 성공시, userInfo 상태를 업데이트합니다.
