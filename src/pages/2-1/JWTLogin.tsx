@@ -8,8 +8,11 @@ const JWTLogin = () => {
   const loginSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    // 아이디 / 비번을 FormData에 담는다.
     const formData = new FormData(event.currentTarget)
 
+    // 아이디 / 비번 데이터를 api에 보낸다.
+    //
     const loginResult = await loginWithToken({
       username: formData.get('username') as string,
       password: formData.get('password') as string

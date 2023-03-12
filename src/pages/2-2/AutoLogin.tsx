@@ -9,7 +9,6 @@ const AutoLogin = () => {
   const getUserInfo = useCallback (async () => {
     // TODO: 유저 정보 가져오기 (getCurrentUserInfo 함수 사용)
     // getCurrentUserInfo 함수를 이용해 유저 정보를 가져온 후, setUserInfo 함수를 이용해 userInfo 상태를 업데이트해주세요.
-
     const userInfo = await getCurrentUserInfo()
 
     if (userInfo === null) return
@@ -21,7 +20,10 @@ const AutoLogin = () => {
 
   useEffect(() => {
     if (isDataFetched.current) return
-    getUserInfo()
+
+    if (userInfo == null) {
+      console.log('로그인 페이지로 이동합니다.');
+    }
   }, [])
 
   return (<div>
@@ -32,7 +34,7 @@ const AutoLogin = () => {
       <h2>
         User info
       </h2>
-      {JSON.stringify(userInfo)}
+      {JSON.stringify(userInfo) != 'null'? JSON.stringify(userInfo) :'로그인 페이지로 이동되어야합니다.'}
     </div>
   </div>)
 }
